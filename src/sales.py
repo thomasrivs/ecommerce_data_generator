@@ -30,31 +30,16 @@ class Sales():
         else:
             raise ValueError("Please enter correct hour")
 
-    def get_visits_on_the_website(self):
-        # JOUR DE SEMAINE NUIT
-        if 1 <= datetime(self.year, self.month, self.day).weekday() <= 5 & 0 <= datetime(self.year, self.month,
-                                                                                         self.day, self.hour).hour <= 7:
-            total_visits = random.randint(200, 1000)
+    def generate_ecommerce_data(self):
 
-            # JOUR DE SEMAINE JOUR
-        elif 1 <= datetime(self.year, self.month, self.day).weekday() <= 5 & 8 <= datetime(self.year, self.month,
-                                                                                           self.day,
-                                                                                           self.hour).hour <= 23:
-            total_visits = random.randint(2000, 8000)
+      # Coefficients for indicators
+      avg_sessions = random.randint(5000,15000)
+      avg_add_to_cart = int(avg_sessions * random.uniform(0.2, 0.4))
+      avg_inititate_checkout = int(avg_sessions * random.uniform(0.1, 0.2))
+      avg_conversions= int(avg_sessions * random.uniform(0.01, 0.05))
 
-            # WEEK_END NUIT
-        elif datetime(self.year, self.month, self.day).weekday() == 6 | 0 & 0 <= datetime(self.year, self.month,
-                                                                                          self.day,
-                                                                                          self.hour).hour <= 7:
-            total_visits = random.randint(5000, 10000)
+      return avg_sessions, avg_add_to_cart, avg_inititate_checkout, avg_conversions
 
-            # WEEK_END JOUR
-        elif datetime(self.year, self.month, self.day).weekday() == 6 | 0 & 8 <= datetime(self.year, self.month,
-                                                                                          self.day,
-                                                                                          self.hour).hour <= 23:
-            total_visits = random.randint(5000, 10000)
-
-        return total_visits
 
 
 
