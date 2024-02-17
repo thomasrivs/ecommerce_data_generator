@@ -32,13 +32,27 @@ class Sales():
 
     def generate_ecommerce_data(self):
 
-      # Coefficients for indicators
-      avg_sessions = random.randint(5000,15000)
-      avg_add_to_cart = int(avg_sessions * random.uniform(0.2, 0.4))
-      avg_inititate_checkout = int(avg_sessions * random.uniform(0.1, 0.2))
-      avg_conversions= int(avg_sessions * random.uniform(0.01, 0.05))
+        # Coefficients for indicators
+        avg_sessions = random.randint(5000, 15000)
+        avg_add_to_cart = int(avg_sessions * random.uniform(0.2, 0.4))
+        avg_inititate_checkout = int(avg_sessions * random.uniform(0.1, 0.2))
+        avg_conversions = int(avg_sessions * random.uniform(0.01, 0.05))
 
-      return avg_sessions, avg_add_to_cart, avg_inititate_checkout, avg_conversions
+        data = np.array([avg_sessions, avg_add_to_cart, avg_inititate_checkout, avg_conversions])
+
+        # If during the night, we make sure to drop by 60% the metrics
+
+        if self.hour in [22, 23, 0, 1, 2, 3, 4, 5, 6]:
+            return data * 0.4
+
+        # If during the weekend, we make sure to increase by 15% the metrics
+
+        if datetime(self.year, self.month, self.day, self.hour).weekday() in [6, 0]:
+            return data * 1.15
+
+        # If during august, we make sure to drop by 60% the visits ahd the performances
+        if self.month == 8:
+            return data * 0.4
 
 
 
