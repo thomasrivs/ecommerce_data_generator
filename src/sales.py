@@ -29,4 +29,13 @@ class Sales():
         else:
             raise ValueError("Please enter correct hour")
 
+    def get_visits_on_the_website(self):
+        if datetime(self.year, self.month, self.day).weekday() > 0:
+            total_visits = random.randint(5000, 10000)
+        else:
+            total_visits = random.randint(7000, 15000)
+
+        return total_visits
+
+
 
