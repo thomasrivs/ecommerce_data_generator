@@ -1,4 +1,5 @@
 from datetime import datetime
+from numpy import random
 
 
 class Sales():
@@ -30,10 +31,28 @@ class Sales():
             raise ValueError("Please enter correct hour")
 
     def get_visits_on_the_website(self):
-        if datetime(self.year, self.month, self.day).weekday() > 0:
+        # JOUR DE SEMAINE NUIT
+        if 1 <= datetime(self.year, self.month, self.day).weekday() <= 5 & 0 <= datetime(self.year, self.month,
+                                                                                         self.day, self.hour).hour <= 7:
+            total_visits = random.randint(200, 1000)
+
+            # JOUR DE SEMAINE JOUR
+        elif 1 <= datetime(self.year, self.month, self.day).weekday() <= 5 & 8 <= datetime(self.year, self.month,
+                                                                                           self.day,
+                                                                                           self.hour).hour <= 23:
+            total_visits = random.randint(2000, 8000)
+
+            # WEEK_END NUIT
+        elif datetime(self.year, self.month, self.day).weekday() == 6 | 0 & 0 <= datetime(self.year, self.month,
+                                                                                          self.day,
+                                                                                          self.hour).hour <= 7:
             total_visits = random.randint(5000, 10000)
-        else:
-            total_visits = random.randint(7000, 15000)
+
+            # WEEK_END JOUR
+        elif datetime(self.year, self.month, self.day).weekday() == 6 | 0 & 8 <= datetime(self.year, self.month,
+                                                                                          self.day,
+                                                                                          self.hour).hour <= 23:
+            total_visits = random.randint(5000, 10000)
 
         return total_visits
 
