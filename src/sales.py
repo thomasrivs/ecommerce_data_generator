@@ -1,8 +1,9 @@
 from datetime import datetime
 from numpy import random
+import numpy as np
 
 
-class Sales():
+class Sales:
     def __init__(self, year, month, day, hour):
         # Treatment of the year:
         if year > datetime.today().year:
@@ -35,10 +36,10 @@ class Sales():
         # Coefficients for indicators
         avg_sessions = random.randint(5000, 15000)
         avg_add_to_cart = int(avg_sessions * random.uniform(0.2, 0.4))
-        avg_inititate_checkout = int(avg_sessions * random.uniform(0.1, 0.2))
+        avg_initiate_checkout = int(avg_sessions * random.uniform(0.1, 0.2))
         avg_conversions = int(avg_sessions * random.uniform(0.01, 0.05))
 
-        data = np.array([avg_sessions, avg_add_to_cart, avg_inititate_checkout, avg_conversions])
+        data = np.array([avg_sessions, avg_add_to_cart, avg_initiate_checkout, avg_conversions])
 
         # If during the night, we make sure to drop by 60% the metrics
 
@@ -50,10 +51,6 @@ class Sales():
         if datetime(self.year, self.month, self.day, self.hour).weekday() in [6, 0]:
             return data * 1.15
 
-        # If during august, we make sure to drop by 60% the visits ahd the performances
+        # If during August, we make sure to drop by 60% the visits ahd the performances
         if self.month == 8:
             return data * 0.4
-
-
-
-
