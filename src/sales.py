@@ -40,17 +40,21 @@ class Sales:
         avg_conversions = int(avg_sessions * random.uniform(0.01, 0.05))
 
         data = np.array([avg_sessions, avg_add_to_cart, avg_initiate_checkout, avg_conversions])
+        labels = ["sessions", 'add_to_cart', 'initiate_checkout', "sales"]
 
         # If during the night, we make sure to drop by 60% the metrics
 
         if self.hour in [22, 23, 0, 1, 2, 3, 4, 5, 6]:
-            return data * 0.4
+            temp_data = (data * 0.4).astype(int).tolist()
 
         # If during the weekend, we make sure to increase by 15% the metrics
 
         if datetime(self.year, self.month, self.day, self.hour).weekday() in [6, 0]:
-            return data * 1.15
+            temp_data = (data * 1.15).astype(int).tolist()
 
         # If during August, we make sure to drop by 60% the visits ahd the performances
         if self.month == 8:
-            return data * 0.4
+            temp_data = (data * 0.4).astype(int).tolist()
+
+        final_data = dict(zip(labels, temp_data))
+        return final_data
