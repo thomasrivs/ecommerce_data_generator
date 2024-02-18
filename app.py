@@ -9,6 +9,10 @@ app = FastAPI()
 
 
 @app.get("/")
-async def read_sales_data(country, year, month, day, hour):
+async def read_sales_data(country : str,
+                          year : int,
+                          month : int,
+                          day : int,
+                          hour : int):
     if country in COUNTRIES:
         return JSONResponse(content=Sales(year=year,month=month, day=day, hour=hour).generate_ecommerce_data())
