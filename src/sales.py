@@ -26,7 +26,7 @@ class Sales:
             raise ValueError("Please enter correct day")
 
         # Treatment of the year:
-        if 0 <= hour <= 59:
+        if 0 <= hour <= 23:
             self.hour = hour
         else:
             raise ValueError("Please enter correct hour")
