@@ -42,19 +42,25 @@ class Sales:
         data = np.array([avg_sessions, avg_add_to_cart, avg_initiate_checkout, avg_conversions])
         labels = ["sessions", 'add_to_cart', 'initiate_checkout', "sales"]
 
-        # If during the night, we make sure to drop by 60% the metrics
+        # Initialize variables for each condition's effect
+        night_factor = 1.0
+        weekend_factor = 1.0
+        august_factor = 1.0
 
+        # If during the night, we make sure to drop by 60% the metrics
         if self.hour in [22, 23, 0, 1, 2, 3, 4, 5, 6]:
-            temp_data = (data * 0.4).astype(int).tolist()
+            night_factor = 0.4
 
         # If during the weekend, we make sure to increase by 15% the metrics
-
         if datetime(self.year, self.month, self.day, self.hour).weekday() in [6, 0]:
-            temp_data = (data * 1.15).astype(int).tolist()
+            weekend_factor = 1.15
 
-        # If during August, we make sure to drop by 60% the visits ahd the performances
+        # If during August, we make sure to drop by 60% the visits and the performances
         if self.month == 8:
-            temp_data = (data * 0.4).astype(int).tolist()
+            august_factor = 0.4
+
+        # Apply cumulative factors to data
+        temp_data = (data * night_factor * weekend_factor * august_factor).astype(int).tolist()
 
         final_data = dict(zip(labels, temp_data))
         return final_data
